@@ -1,0 +1,8 @@
+.DS_Store
+node_modules
+*.code-workspace
+.env
+
+# Local directories/files
+
+.npmrc

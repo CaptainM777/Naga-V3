@@ -1,0 +1,31 @@
+{
+  "name": "naga-v3",
+  "version": "3.0.0",
+  "description": "",
+  "homepage": "https://github.com/atlacord/Naga-V3#readme",
+  "bugs": {
+    "url": "https://github.com/atlacord/Naga-V3/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlacord/Naga-V3.git"
+  },
+  "license": "ISC",
+  "author": "kdspa, twodog, captainm",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "dependencies": {
+    "@sapphire/discord-utilities": "^4.0.0",
+    "@sapphire/discord.js-utilities": "^7.3.3",
+    "@sapphire/framework": "^5.4.0",
+    "@sapphire/plugin-logger": "^4.1.0",
+    "@sapphire/utilities": "^3.18.2",
+    "discord.js": "^14.24.2",
+    "dotenv": "^17.2.3",
+    "mongoose": "^8.19.3",
+    "node-cron": "^4.2.1"
+  }
+}
