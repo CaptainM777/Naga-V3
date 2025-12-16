@@ -16,6 +16,28 @@ class Utilities {
       }
     ]});
   }
+
+  hexToRgb(hex) {
+    const num = parseInt(hex.replace('#', ''), 16);
+    return [
+      num >> 16,
+      (num >> 8) & 255,
+      num & 255,
+    ];
+  }
+
+  rgbToHex(red, green, blue) {
+    return ( (blue | (green << 8) | (red << 16) ) | (1 << 24) ).toString(16).slice(1);
+  }
+
+  hexToInteger(hex) {
+    return parseInt(hex.replace('#', ''), 16);
+  }
+
+  integerToHex(int) {
+    const num = parseInt(int, 10);
+    return `#${num.toString(16).padStart(6, '0')}`;
+  }
 }
 
 module.exports = { Utilities };
