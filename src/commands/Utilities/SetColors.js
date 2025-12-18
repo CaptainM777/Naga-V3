@@ -1,7 +1,7 @@
 const { Command, Resolvers } = require('@sapphire/framework');
 const { PermissionFlagsBits } = require('discord.js');
 
-class SetColor extends Command {
+class SetColors extends Command {
   constructor(context, options) {
     super(context, {
       ...options, 
@@ -10,7 +10,7 @@ class SetColor extends Command {
       description: 'Set colors for a specified role. You can set a primary, secondary, and tertiary color, with at least a primary required.',
       detailedDescription: {
         'Command Forms and Arguments': '`n.setcolors [role] [primary color] [secondary color] [tertiary color]`\n' + 
-                                       '**Role:** ID or name. If it\'s a name, it must be wrapped in double quotes\n' +
+                                       '**Role:** ID or name. If it\'s a name, it must be wrapped in double quotes. Required.\n' +
                                        '**Primary/Secondary/Tertiary Colors:**: Hex code or an integer (base 10). Primary ' +
                                        'is required, secondary and tertiary are optional.'
       },
@@ -42,7 +42,7 @@ class SetColor extends Command {
         )
         .addStringOption((option) =>
           option.setName('tertiary_color').setDescription('The tertiary color. Can be a hex code or an integer (base 10).')
-        ), { guildIds: ['650143161645006848'] });
+        ), { guildIds: ['650143161645006848', '370708369951948800'] });
   }
 
   async messageRun(message, args) {
@@ -131,4 +131,4 @@ class SetColor extends Command {
   }
 }
 
-module.exports = { SetColor };
+module.exports = { SetColors };
