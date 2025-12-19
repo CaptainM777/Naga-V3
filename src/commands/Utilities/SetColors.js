@@ -138,7 +138,7 @@ class SetColors extends Command {
 
     if (secondaryColor) confirmationMessage.push('and secondary color');
 
-    confirmationMessage.push(`of role <@&${role.id}> (${role.id})`);
+    confirmationMessage.push(`of role <@&${role.id}> (${role.name}, ${role.id})`);
 
     confirmationMessage.push(`\n\n__Old Colors__\nPrimary: \`${oldRoleColors[0]}\``);
 
