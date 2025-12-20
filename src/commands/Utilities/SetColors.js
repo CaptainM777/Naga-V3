@@ -13,7 +13,7 @@ class SetColors extends Command {
       description: 'Set colors for a specified role. You can set a primary or a secondary color, with at least a primary required.',
       detailedDescription: {
         'Command Forms and Arguments': '`n.setcolors [role] [primary color] [secondary color]`\n' + 
-                                       '**Role:** ID or name. If it\'s a name, it must be wrapped in double quotes. Required.\n' +
+                                       '**Role:** ID or name. If it\'s a name with multiple words, it must be wrapped in double quotes. Required.\n' +
                                        '**Primary and Secondary Colors**: Hex code or an integer (base 10). Primary ' +
                                        'is required, secondary is optional.'
       },
