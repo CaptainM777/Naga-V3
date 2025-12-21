@@ -69,33 +69,35 @@ class Help extends Command {
   }
 
   async specificCommand(message, commandName) {
-    const command = this.container.stores.get('commands').get(commandName);
+    const commandStore = this.container.stores.get('commands');
+
+    const command = commandStore.find(c => c.name === commandName || c.aliases.includes(commandName));
+
     if (!command) return;
 
     const hasPermission = await this.hasPermission(message, command);
     if (!hasPermission) return;
 
-    const embedDescription = [];
+    const fields = [];
 
-    embedDescription.push(command.description ? `**Description:** ${command.description}` : 'None.');
-
-    if (command.aliases && command.aliases.length > 0) embedDescription.push(`**Aliases:** ${command.aliases.join(', ')}`);
+    if (command.aliases && command.aliases.length > 0) fields.push({ name: 'Aliases', value: command.aliases.join(', ') });
 
     if (command.detailedDescription && Object.keys(command.detailedDescription).length > 0) {
       for (let [name, description] of Object.entries(command.detailedDescription)) {
         const capitalizedName = name[0].toUpperCase() + name.slice(1);
         if (Array.isArray(description)) description = description.join(', ');
-        embedDescription.push(`**${capitalizedName}:** ${description}`);
+        fields.push({ name: capitalizedName, value: description });
       }
     }
 
     const commandEmbed = {
       color: 9031664, 
       author: {
-        name: `Help for ${commandName}`,
+        name: `Help for ${command.name}`,
         iconURL: this.container.client.user.displayAvatarURL()
       },
-      description: embedDescription.join('\n')
+      description: command.description,
+      fields: fields
     };
 
     await message.channel.send({ embeds: [commandEmbed] });
