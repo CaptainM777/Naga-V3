@@ -49,6 +49,8 @@ class Help extends Command {
 
     const sortedCommands = this.sortObjectByKey(allCommands);
 
+    Object.values(allCommands).forEach((c) => c.sort());
+
     const fields = [];
 
     for (const [category, commands] of Object.entries(sortedCommands)) {
