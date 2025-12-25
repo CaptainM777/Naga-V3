@@ -9,9 +9,9 @@ class Utilities {
 
     if (channelOrInteraction.isChatInputCommand?.()) {
       if (channelOrInteraction.deferred) {
-        return await interaction.editReply({ embeds: embeds });
+        return await channelOrInteraction.editReply({ embeds: embeds });
       } else {
-        return await interaction.reply({ embeds: embeds });
+        return await channelOrInteraction.reply({ embeds: embeds });
       }
     }
 
@@ -28,9 +28,9 @@ class Utilities {
 
     if (channelOrInteraction.isChatInputCommand?.()) {
       if (channelOrInteraction.deferred) {
-        return await interaction.editReply({ embeds: embeds });
+        return await channelOrInteraction.editReply({ embeds: embeds });
       } else {
-        return await interaction.reply({ embeds: embeds });
+        return await channelOrInteraction.reply({ embeds: embeds });
       }
     }
 
