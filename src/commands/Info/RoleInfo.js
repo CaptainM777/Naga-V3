@@ -59,7 +59,7 @@ class RoleInfo extends Command {
           name: role.name, 
           icon_url: null 
         },
-        thumbnail: { url: null },
+        thumbnail: { url: role.iconURL || null },
 
         fields: [
           { name: 'Name', value: role.name, inline: true },
