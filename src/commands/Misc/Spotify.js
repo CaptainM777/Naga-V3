@@ -1,4 +1,4 @@
-const { Command, Resolver } = require('@sapphire/framework');
+const { Command } = require('@sapphire/framework');
 
 class Spotify extends Command {
     constructor(context, options) {
