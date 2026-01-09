@@ -1,4 +1,4 @@
-const { Command } = require('@sapphire/framework');
+const { Command, Resolver } = require('@sapphire/framework');
 
 class Spotify extends Command {
     constructor(context, options) {
@@ -53,13 +53,12 @@ class Spotify extends Command {
     }
 
     async messageRun(message, args) {
-        const memberArg = await args.pick('string').catch(() => null);
-        const member = message.mentions.members.first() || (message.channel.guild.members.cache.get(memberArg)) || message.member;
+        const memberArg = await args.pick('string').catch(() => null) || message.member;
+        const member = await message.channel.guild.members.fetch({ user: memberArg, withPresences: true });
 
         try {
             if (member.user.bot) return this.container.utils.sendError(message.channel, 'Please enter a human user.');
             let embed = this.spotifyPresence(member);
-
             message.channel.send({embeds: [embed]});
         } catch (err) {
             console.error(err);
@@ -68,8 +67,8 @@ class Spotify extends Command {
     }
 
     async chatInputRun(interaction) {
-        const user = interaction.options.getUser('member');
-        const member = interaction.channel.guild.members.cache.get(user.id);
+        const user = interaction.options.getUser('member') || interaction.member;
+        const member = await interaction.channel.guild.members.fetch({ user: user.id, withPresences: true });
         await interaction.deferReply();
 
         try {
@@ -79,7 +78,7 @@ class Spotify extends Command {
             interaction.editReply({embeds: [embed]});
         } catch (err) {
             console.error(err);
-            interaction.channel.editReply(`An error occurred: \`\`\`${err}\`\`\``);
+            interaction.editReply(`An error occurred: \`\`\`${err}\`\`\``);
         }
     }
 }
