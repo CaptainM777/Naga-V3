@@ -18,7 +18,7 @@ class Avatar extends Command {
       builder
         .setName('avatar')
         .setDescription('Returns a user avatar')
-        .addStringOption((option) =>
+        .addUserOption((option) =>
           option
             .setName('user')
             .setDescription('User')
@@ -29,11 +29,9 @@ class Avatar extends Command {
 
     async messageRun(message, args) {
         try { 
-            let userArg = await args.pick('string').catch(() => null);
-            let user = message.mentions.users.first() || message.channel.guild.members.cache.get(userArg) || msg.author;
-            if (user.constructor.name === 'User') user = message.channel.guild.members.cache.get(user.id); // Surely there are better ways to do this
-
-            let avatar = user.displayAvatarURL() || user.avatarURL() // Fetches user's guild avatar, falls back to user avatar if one isn't set
+            const userArg = await args.pick('string').catch(() => null) || message.author;
+            const user = await message.channel.guild.members.fetch(userArg);
+            let avatar = user.displayAvatarURL({ size: 4096 }) || user.avatarURL({ size: 4096}) // Fetches user's guild avatar, falls back to user avatar if one isn't set
 
             let embed = {
                 title: 'Avatar',
@@ -51,14 +49,12 @@ class Avatar extends Command {
     }
 
     async chatInputRun(interaction) {
-        const userArg = interaction.options.getString('user');
+        const userArg = interaction.options.getUser('user') || interaction.user;
         await interaction.deferReply();
 
         try { 
-            let user = interaction.mentions.users.first() || interaction.channel.guild.members.cache.get(userArg) || interaction.author;
-            if (user.constructor.name === 'User') user = interaction.channel.guild.members.cache.get(user.id); // Surely there are better ways to do this
-
-            let avatar = user.displayAvatarURL() || user.avatarURL() // Fetches user's guild avatar, falls back to user avatar if one isn't set
+            let user = await interaction.channel.guild.members.fetch(userArg);
+            let avatar = user.displayAvatarURL({ size: 4096 }) || user.avatarURL({ size: 4096 }) // Fetches user's guild avatar, falls back to user avatar if one isn't set
 
             let embed = {
                 title: 'Avatar',
