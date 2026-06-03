@@ -68,7 +68,7 @@ class Resolver {
 		return null;
 	}
 
-	role(guild, role) {
+	async role(guild, role) {
 		const mention = ROLE_MENTION_REGEX.exec(role);
 		if (mention && mention.length > 1) {
 			return guild.roles.fetch(mention[1]);
